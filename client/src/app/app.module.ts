@@ -5,10 +5,16 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SearchReviewComponent } from './components/search-review/search-review.component';
+import { MovieReviewsListComponent } from './components/movie-reviews-list/movie-reviews-list.component';
+import { PostCommentComponent } from './components/post-comment/post-comment.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SearchReviewComponent,
+    MovieReviewsListComponent,
+    PostCommentComponent
   ],
   imports: [
     BrowserModule,
