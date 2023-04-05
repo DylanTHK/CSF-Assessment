@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { SearchReviewComponent } from './components/search-review/search-review.component';
 import { MovieReviewsListComponent } from './components/movie-reviews-list/movie-reviews-list.component';
 import { PostCommentComponent } from './components/post-comment/post-comment.component';
+import { MovieService } from './services/movie.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { PostCommentComponent } from './components/post-comment/post-comment.com
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [MovieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

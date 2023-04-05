@@ -1,5 +1,11 @@
 package ibf2022.batch1.csf.assessment.server.models;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ibf2022.batch1.csf.assessment.server.repositories.MovieRepository;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+
 // DO NOT MODIFY THIS CLASS
 public class Review {
 	// display_title
@@ -45,8 +51,59 @@ public class Review {
 	public int getCommentCount() { return this.commentCount; }
 
 
+	// @Override
+	// public String toString() {
+	// 	return "Review{title:%s, rating:%s}".formatted(title, rating);
+	// }
+
 	@Override
 	public String toString() {
-		return "Review{title:%s, rating:%s}".formatted(title, rating);
+		return "Review [title=" + title + ", rating=" + rating + ", byline=" + byline + ", headline=" + headline
+				+ ", summary=" + summary + ", reviewURL=" + reviewURL + ", image=" + image + ", commentCount="
+				+ commentCount + "]";
 	}
+
+
+	public static Review toReview(JsonObject obj) {
+		Review r = new Review();
+		JsonObject linkObj = obj.getJsonObject("link");
+		String title = getStringValue("display_title", obj);
+		r.setTitle(title);
+		r.setRating(getStringValue("mpaa_rating", obj));
+		r.setByline(getStringValue("byline", obj));
+		r.setHeadline(getStringValue("headline", obj));
+		r.setSummary(getStringValue("summary_short", obj));
+		r.setReviewURL(getStringValue("url", linkObj));		
+		// some multimedia are null
+		try {
+			JsonObject mmObj = obj.getJsonObject("multimedia");
+			r.setImage(getStringValue("src", mmObj));
+		} catch (Exception e) {
+			// e.printStackTrace();
+			r.setImage("");
+		}
+		return r;
+	}
+
+	public static String getStringValue(String label, JsonObject o) {
+        if(o.containsKey(label) && !o.isNull(label)) {
+            return o.getString(label);
+        }
+        return "No value";
+    }
+
+	public JsonObject toJson() {
+		return Json.createObjectBuilder()
+			.add("title", title)
+			.add("rating", rating)
+			.add("byline", byline)
+			.add("headline", headline)
+			.add("summary", summary)
+			.add("reviewURL", reviewURL)
+			.add("image", image)
+			.add("commentCount", commentCount)
+			.build();
+	}
+
+
 }
