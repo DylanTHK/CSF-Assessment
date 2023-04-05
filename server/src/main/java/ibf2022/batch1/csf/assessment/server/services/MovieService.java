@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import ibf2022.batch1.csf.assessment.server.models.Comment;
 import ibf2022.batch1.csf.assessment.server.models.Review;
 import ibf2022.batch1.csf.assessment.server.repositories.MovieRepository;
 import jakarta.json.Json;
@@ -33,7 +35,7 @@ public class MovieService {
 	@Autowired
 	private MovieRepository movieRepo;
 
-	// TODO: Task 4
+	// Task 4
 	// DO NOT CHANGE THE METHOD'S SIGNATURE
 	public List<Review> searchReviews(String query) {
 		// construct url
@@ -71,7 +73,13 @@ public class MovieService {
 		return reviewList;
 	}
 
+	// Task 5
 	public int getCount(String title) {
 		return movieRepo.countComments(title);
+	}
+
+	// Task 8
+	public Document postComment(Comment c) {
+		return movieRepo.postComment(c);
 	}
 }

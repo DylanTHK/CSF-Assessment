@@ -1,5 +1,8 @@
 package ibf2022.batch1.csf.assessment.server.models;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
+
 public class Comment {
     private String title;
     private String name;
@@ -36,5 +39,13 @@ public class Comment {
         return "Comment [title=" + title + ", name=" + name + ", rating=" + rating + ", comment=" + comment + "]";
     }
 
+    public JsonObject toJson() {
+        return Json.createObjectBuilder()
+                .add("title", title)
+                .add("name", name)
+                .add("rating", rating)
+                .add("comment", comment)
+                .build();
+    }
 
 }

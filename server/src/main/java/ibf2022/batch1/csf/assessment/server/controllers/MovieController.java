@@ -11,6 +11,7 @@ import jakarta.json.JsonArrayBuilder;
 
 import java.util.List;
 
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -43,8 +44,6 @@ public class MovieController {
 			.map(r -> {
 				// for each query number of comments and add to Review
 				int count = movieSvc.getCount(r.getTitle());
-				// FIXME: REMOVE sysout
-				// System.out.println("Number of comments for " + r.getTitle() + " is: " + count);
 				r.setCommentCount(count);
 				return r;
 			})
@@ -62,13 +61,17 @@ public class MovieController {
 	@PostMapping(
 		path="/comment",
 		consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public void postComment(@ModelAttribute Comment c) {
+	public ResponseEntity<String> postComment(@ModelAttribute Comment c) {
 
 		System.out.println("Received comment: " + c);
-		// call svc
 
+		// call svc, add c to Mongo -> Document -> insert to Mongo
+		Document insertedDoc = movieSvc.postComment(c);
 
-		// return null;
+		return ResponseEntity
+				.status(HttpStatus.CREATED)
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(insertedDoc.toJson().toString());
 	}
 
 }
