@@ -3,6 +3,7 @@ package ibf2022.batch1.csf.assessment.server.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ibf2022.batch1.csf.assessment.server.models.Comment;
 import ibf2022.batch1.csf.assessment.server.models.Review;
 import ibf2022.batch1.csf.assessment.server.services.MovieService;
 import jakarta.json.Json;
@@ -15,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -55,8 +58,17 @@ public class MovieController {
 				.body(jsonArray.build().toString());
 	}
 	 
-	
-	
 	// Task 8
+	@PostMapping(
+		path="/comment",
+		consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public void postComment(@ModelAttribute Comment c) {
+
+		System.out.println("Received comment: " + c);
+		// call svc
+
+
+		// return null;
+	}
 
 }
