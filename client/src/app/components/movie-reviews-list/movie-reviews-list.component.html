@@ -1,1 +1,42 @@
-<p>movie-reviews-list works!</p>
+<h2>Search Result</h2>
+<button type="button" (click)="toSearchView()">Back</button>
+<!-- If list empty, Show no result -->
+<div *ngIf="reviewList.length <= 0">
+    <p>Your search produces no result</p>
+</div>
+<div *ngIf="reviewList.length > 0">
+    <p>Getting your search</p>
+
+    <div *ngFor="let r of reviewList; let idx=index">
+        <table>
+            <tr>
+                <!-- first column -->
+                <td>
+                    <img src="{{r.image}}">
+                </td>
+                <!-- second column -->
+                <td>
+                    <tr>
+                        <a href="{{r.reviewURL}}">
+                            {{r.title}}, {{r.rating}}
+                        </a>
+                    </tr>
+                    <tr>
+                        <p>{{r.headline}}</p>
+                    </tr>
+                    <tr>
+                        <p>
+                            {{r.summary}}
+                        </p>
+                    </tr>
+                    <tr>
+                        Comments: {{r.commentCount}}
+                    </tr>
+                    <tr>
+                        <button type="button" (click)="toComment(idx)">Comment</button>
+                    </tr>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

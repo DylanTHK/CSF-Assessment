@@ -1,8 +1,5 @@
 package ibf2022.batch1.csf.assessment.server.models;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import ibf2022.batch1.csf.assessment.server.repositories.MovieRepository;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 

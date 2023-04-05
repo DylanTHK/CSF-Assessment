@@ -1,1 +1,41 @@
-<p>post-comment works!</p>
+<h2>Post comment for {{title}}</h2>
+<form [formGroup]="commentForm" (ngSubmit)="postComment()">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td>
+                <input type="text" formControlName="name">
+            </td>
+        </tr>
+        <tr>
+            <td>Rating</td>
+            <td>
+                <select name="rating" formControlName="rating">
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2>
+                Comment:
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2>
+                <input type="text" formControlName="comment">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button type="button" (click)="toResults()">Back</button>
+            </td>
+            <td>
+                <button type="submit" [disabled]="commentForm.invalid">Post</button>
+            </td>
+        </tr>
+    </table>
+</form>
