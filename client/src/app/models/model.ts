@@ -10,3 +10,10 @@ export interface Review {
 	// not used?
 	byline: string;
 }
+
+export interface Comment {
+	title: string;
+	name: string;
+	rating: number;
+	comment: string;
+}

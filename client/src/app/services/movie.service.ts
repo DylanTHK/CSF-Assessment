@@ -1,7 +1,7 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom, Subject } from 'rxjs';
-import { Review } from '../models/model';
+import { Review, Comment } from '../models/model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,11 @@ import { Review } from '../models/model';
 export class MovieService {
 
   // reviews: Review[] = [];
-
   onReview = new Subject<Review[]>();
 
   constructor(private httpClient: HttpClient) { }
 
-  // TODO: Task 3 Make API Call to Springboot (Link to search button)
+  // Task 3 Make API Call to Springboot (Link to search button)
   getReviews(movieName: string) {
     const url = "/api/search";
     const params = new HttpParams()
@@ -27,7 +26,19 @@ export class MovieService {
         return r;
       }).then(data => 
         this.onReview.next(data));
-
   }
 
+  postComment(comment: Comment) {
+    const url = "/api/comment";
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded');
+
+    const body = `title=${comment.title}&name=${comment.name}&rating=${comment.rating}&comment=${comment.comment}`
+
+    firstValueFrom(
+      this.httpClient.post<Comment>(url, body, {headers})
+    ).then(response => {
+      console.info("Response from post:", response);
+    })
+  }
 }

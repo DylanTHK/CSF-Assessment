@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: "", component: SearchReviewComponent},
   {path: "search", component: SearchReviewComponent},
   {path: "review-list", component: MovieReviewsListComponent},
-  {path: "post-comment", component: PostCommentComponent},
+  {path: "post-comment/:title", component: PostCommentComponent},
   {path: "**", redirectTo: "/", pathMatch: "full"}
 ];
 

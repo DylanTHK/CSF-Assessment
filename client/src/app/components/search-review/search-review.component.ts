@@ -20,8 +20,7 @@ export class SearchReviewComponent implements OnInit{
 
   ngOnInit(): void {
       this.form = this.fb.group({
-        // FIXME: Remove initial value
-        "movie-name": this.fb.control<string>('spider', [Validators.required, Validators.minLength(2)])
+        "movie-name": this.fb.control<string>('', [Validators.required, Validators.minLength(2)])
       })
   }
 
@@ -30,6 +29,6 @@ export class SearchReviewComponent implements OnInit{
     const name = this.form.get("movie-name")?.value;
     console.info("Getting reviews for name: ", name);
     this.movieSvc.getReviews(name);
-    this.router.navigate(['/review-list'])
+    this.router.navigate(['/review-list', name])
   }
 }

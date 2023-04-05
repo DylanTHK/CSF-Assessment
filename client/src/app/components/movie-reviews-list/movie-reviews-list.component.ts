@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Review } from 'src/app/models/model';
 import { MovieService } from 'src/app/services/movie.service';
@@ -11,28 +11,31 @@ import { MovieService } from 'src/app/services/movie.service';
 })
 export class MovieReviewsListComponent implements OnInit, OnDestroy {
   
+  query!: string;
   reviewList: Review[] = [];
   reviewSub!: Subscription;
 
   constructor(
     private router: Router,
-    private movieSvc: MovieService) { }
+    private movieSvc: MovieService,
+    private activatedRoute: ActivatedRoute) { }
 
   // subscribe to changes in list values
   ngOnInit(): void {
     this.reviewSub = this.movieSvc.onReview.subscribe(
       data => this.reviewList = data
     )
+    
   }
 
   ngOnDestroy(): void {
       this.reviewSub.unsubscribe();
   }
 
-  // TODO: send data(title) to comments page
   toComment(idx: number) {
-
-    this.router.navigate(['/post-comment'])
+    const title = this.reviewList[idx].title;
+    console.info("commenting on: ", title);
+    this.router.navigate(['/post-comment', title])
   }
 
   // route back to view 1 
