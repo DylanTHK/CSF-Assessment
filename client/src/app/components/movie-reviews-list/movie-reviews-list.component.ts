@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Review } from 'src/app/models/model';
 import { MovieService } from 'src/app/services/movie.service';
 
@@ -8,17 +9,24 @@ import { MovieService } from 'src/app/services/movie.service';
   templateUrl: './movie-reviews-list.component.html',
   styleUrls: ['./movie-reviews-list.component.css']
 })
-export class MovieReviewsListComponent implements OnInit {
+export class MovieReviewsListComponent implements OnInit, OnDestroy {
   
   reviewList: Review[] = [];
+  reviewSub!: Subscription;
 
   constructor(
     private router: Router,
     private movieSvc: MovieService) { }
 
-  // TODO: subscribe to changes in list values
+  // subscribe to changes in list values
   ngOnInit(): void {
+    this.reviewSub = this.movieSvc.onReview.subscribe(
+      data => this.reviewList = data
+    )
+  }
 
+  ngOnDestroy(): void {
+      this.reviewSub.unsubscribe();
   }
 
   // TODO: send data(title) to comments page

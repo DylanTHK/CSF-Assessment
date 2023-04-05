@@ -77,7 +77,7 @@ public class Review {
 			r.setImage(getStringValue("src", mmObj));
 		} catch (Exception e) {
 			// e.printStackTrace();
-			r.setImage("");
+			r.setImage("/assets/placeholder.jpg");
 		}
 		return r;
 	}

@@ -5,20 +5,18 @@
     <p>Your search produces no result</p>
 </div>
 <div *ngIf="reviewList.length > 0">
-    <p>Getting your search</p>
-
     <div *ngFor="let r of reviewList; let idx=index">
         <table>
             <tr>
                 <!-- first column -->
                 <td>
-                    <img src="{{r.image}}">
+                    <img src="{{r.image}}" width="150px">
                 </td>
                 <!-- second column -->
                 <td>
                     <tr>
                         <a href="{{r.reviewURL}}">
-                            {{r.title}}, {{r.rating}}
+                            {{r.title}} ({{r.rating}})
                         </a>
                     </tr>
                     <tr>
