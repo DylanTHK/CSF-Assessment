@@ -60,7 +60,8 @@ public class MovieController {
 	// Task 8
 	@PostMapping(
 		path="/comment",
-		consumes=MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+		consumes={MediaType.APPLICATION_FORM_URLENCODED_VALUE},
+		produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> postComment(@ModelAttribute Comment c) {
 
 		System.out.println("Received comment: " + c);
